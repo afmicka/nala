@@ -3,7 +3,7 @@ export default class AcomHomePage {
       this.page = page;
   
       // Gnav menu locators
-      this.helpSupportMenu = page.locator('//*[contains(@daa-ll,"Help_Support")]');
+      this.helpSupportMenu = page.locator('//*[contains(@daa-ll,"Help Support")]');
       this.contactUsCTA = page.locator('a[href$="#open-jarvis-chat"]');
 
       // Jarvis popup chat

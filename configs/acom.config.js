@@ -2,7 +2,6 @@
 const { devices } = require('@playwright/test');
 
 const envs = require('../envs/envs.js');
-
 /**
  * @see https://playwright.dev/docs/test-configuration
  * @type {import('@playwright/test').PlaywrightTestConfig}
@@ -40,59 +39,82 @@ const config = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    baseURL: process.env.BASE_URL || envs['@adobe_stage'] || 'https://www.stage.adobe.com',
+    baseURL: process.env.BASE_URL || envs['@acom_live'] || 'https://main--homepage--adobecom.hlx.live',
   },
 
   /* Configure projects for major browsers */
   projects: [
-    // adobe stage
     {
-      name: 'adobe-stage-chrome',
+      name: 'acom-live-chrome',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: envs['@adobe_stage'],
+        baseURL: envs['@acom_live'],
       },
     },
 
     {
-      name: 'adobe-stage-firefox',
+      name: 'acom-live-firefox',
       use: {
         ...devices['Desktop Firefox'],
-        baseURL: envs['@adobe_stage'],
+        baseURL: envs['@acom_live'],
       },
     },
 
     {
-      name: 'adobe-stage-webkit',
+      name: 'acom-live-webkit',
       use: {
         ...devices['Desktop Safari'],
-        baseURL: envs['@adobe_stage'],
+        baseURL: envs['@acom_live'],
       },
     },
-    // adobe prod
-    {
-      name: 'adobe-prod-chrome',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: envs['@adobe_prod'],
-      },
-    },
+    // // adobe stage
+    // {
+    //   name: 'adobe-stage-chrome',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     baseURL: envs['@adobe_stage'],
+    //   },
+    // },
 
-    {
-      name: 'adobe-prod-firefox',
-      use: {
-        ...devices['Desktop Firefox'],
-        baseURL: envs['@adobe_prod'],
-      },
-    },
+    // {
+    //   name: 'adobe-stage-firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     baseURL: envs['@adobe_stage'],
+    //   },
+    // },
 
-    {
-      name: 'adobe-prod-webkit',
-      use: {
-        ...devices['Desktop Safari'],
-        baseURL: envs['@adobe_prod'],
-      },
-    },
+    // {
+    //   name: 'adobe-stage-webkit',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     baseURL: envs['@adobe_stage'],
+    //   },
+    // },
+    // // adobe prod
+    // {
+    //   name: 'adobe-prod-chrome',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     baseURL: envs['@adobe_prod'],
+    //   },
+    // },
+
+    // {
+    //   name: 'adobe-prod-firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     baseURL: envs['@adobe_prod'],
+    //   },
+    // },
+
+    // {
+    //   name: 'adobe-prod-webkit',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     baseURL: envs['@adobe_prod'],
+    //   },
+    // },
   ],
 };
 module.exports = config;
