@@ -6,6 +6,7 @@ module.exports = {
   '@stock_live': 'https://main--stock--adobecom.hlx.live',
   '@adobestock_live': 'https://main--adobestock--adobecom.hlx.live',
   '@dc_live': 'https://main--dc--adobecom.hlx.live',
+  '@acom_live': 'https://main--homepage--adobecom.hlx.live',
   '@adobe_stage': 'https://www.stage.adobe.com',
   '@adobe_prod': 'https://www.adobe.com',
   '@bacom_live': 'https://main--bacom--adobecom.hlx.live',
