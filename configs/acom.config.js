@@ -67,6 +67,30 @@ const config = {
         baseURL: envs['@acom_live'],
       },
     },
+    // adobe prod
+    {
+      name: 'adobe-prod-chrome',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: envs['@adobe_prod'],
+      },
+    },
+
+    {
+      name: 'adobe-prod-firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        baseURL: envs['@adobe_prod'],
+      },
+    },
+
+    {
+      name: 'adobe-prod-webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        baseURL: envs['@adobe_prod'],
+      },
+    },    
     // // adobe stage
     // {
     //   name: 'adobe-stage-chrome',
@@ -91,30 +115,7 @@ const config = {
     //     baseURL: envs['@adobe_stage'],
     //   },
     // },
-    // // adobe prod
-    // {
-    //   name: 'adobe-prod-chrome',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     baseURL: envs['@adobe_prod'],
-    //   },
-    // },
 
-    // {
-    //   name: 'adobe-prod-firefox',
-    //   use: {
-    //     ...devices['Desktop Firefox'],
-    //     baseURL: envs['@adobe_prod'],
-    //   },
-    // },
-
-    // {
-    //   name: 'adobe-prod-webkit',
-    //   use: {
-    //     ...devices['Desktop Safari'],
-    //     baseURL: envs['@adobe_prod'],
-    //   },
-    // },
   ],
 };
 module.exports = config;

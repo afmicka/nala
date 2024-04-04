@@ -8,6 +8,9 @@ export default class AcomHomePage {
 
       // Jarvis popup chat
       this.jarvisContainer = page.locator('iframe.adbmsgContentIframe');
+
+      // Homepage selectors
+      this.homepageBrick = page.locator('//div[contains(@daa-lh,"homepage-brick")]');
       
     }
   }
