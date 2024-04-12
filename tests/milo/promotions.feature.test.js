@@ -4,10 +4,10 @@ import PromoPage from '../../selectors/milo/promotions.feature.page.js';
 
 const miloLibs = process.env.MILO_LIBS || '';
 
-let PROMO;
-test.beforeEach(async ({ page }) => { PROMO = new PromoPage(page); });
-
 test.describe('Promotions feature test suite', () => {
+  let PROMO;
+  test.beforeEach(async ({ page }) => { PROMO = new PromoPage(page); });
+
   // @Promo-insert - Validate promo insert text after marquee and before text component
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;

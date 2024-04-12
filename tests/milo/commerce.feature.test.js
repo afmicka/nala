@@ -6,10 +6,10 @@ import FedsHeader from '../../selectors/feds/feds.header.page.js';
 
 const miloLibs = process.env.MILO_LIBS || '';
 
-let COMM;
-test.beforeEach(async ({ page }) => { COMM = new CommercePage(page); });
-
 test.describe('Commerce feature test suite', () => {
+  let COMM;
+  test.beforeEach(async ({ page }) => { COMM = new CommercePage(page); });
+
   // @Commerce-Price-Term - Validate price with term display
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
