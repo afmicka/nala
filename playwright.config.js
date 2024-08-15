@@ -8,7 +8,7 @@ const { devices } = require('@playwright/test');
  */
 const config = {
   testDir: './tests/milo',
-  outputDir: './test-results',
+  outputDir: '../mili',
   globalSetup: './global.setup.js',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -38,6 +38,7 @@ const config = {
 
     trace: 'on-first-retry',
     // eslint-disable-next-line max-len
+    screenshot: 'only-on-failure',
     baseURL: process.env.PR_BRANCH_LIVE_URL || (process.env.LOCAL_TEST_LIVE_URL || 'https://main--milo--adobecom.hlx.live'),
   },
 

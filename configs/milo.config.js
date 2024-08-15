@@ -9,7 +9,7 @@ const envs = require('../envs/envs.js');
  */
 const config = {
   testDir: '../tests/milo',
-  outputDir: '../test-results',
+  outputDir: '../mili',
   /* Maximum time one test can run for. */
   timeout: 45 * 1000,
   /**
@@ -46,7 +46,7 @@ const config = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    screenshot: 'on',
+    screenshot: 'only-on-failure',
     baseURL: process.env.BASE_URL || envs['@milo_live'] || 'https://main--milo--adobecom.hlx.live',
   },
 
