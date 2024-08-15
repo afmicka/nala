@@ -8,7 +8,7 @@ const { devices } = require('@playwright/test');
  */
 const config = {
   testDir: './tests/milo',
-  outputDir: '../mili',
+  outputDir: './mili',
   globalSetup: './global.setup.js',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,

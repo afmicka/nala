@@ -9,7 +9,7 @@ const envs = require('../envs/envs.js');
  */
 const config = {
   testDir: '../tests/milo',
-  outputDir: '../mili',
+  outputDir: './mili',
   /* Maximum time one test can run for. */
   timeout: 45 * 1000,
   /**
