@@ -55,6 +55,7 @@ const config = {
       name: 'milo-live-chrome',
       use: {
         ...devices['Desktop Chrome'],
+        channel: 'chrome',
         baseURL: envs['@milo-live'],
         contextOptions: { permissions: ['clipboard-read', 'clipboard-write'] },
       },
