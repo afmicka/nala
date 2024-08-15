@@ -529,43 +529,4 @@ test.describe('Promotions feature test suite', () => {
     });
   });
 
-  test(`${features[14].name},${features[14].tags}`, async ({ page, baseURL }) => {
-    const testPage = `${baseURL}${features[14].path}${miloLibs}`;
-    console.info('[Test Page]: ', testPage);
-
-    await test.step('Go to the test page', async () => {
-      await page.goto(testPage);
-      await page.waitForLoadState('domcontentloaded');
-      await page.screenshot({ fullPage: true });
-      console.log('DEBUG: Screenshot taken');
-    });
-
-    await test.step('Validate regular price display', async () => {
-      await COMM.price.waitFor({ state: 'visible', timeout: 10000 });
-      expect(await COMM.price.innerText()).toContain('US$263.88/yr');
-      expect(await COMM.price.locator('.price-recurrence').innerText()).not.toBe('');
-      expect(await COMM.price.locator('.price-unit-type').innerText()).toBe('');
-      expect(await COMM.price.locator('.price-tax-inclusivity').innerText()).toBe('');
-    });
-
-    await test.step('Validate optical price display', async () => {
-      await COMM.priceOptical.waitFor({ state: 'visible', timeout: 10000 });
-      expect(await COMM.priceOptical.innerText()).toContain('US$21.99/mo');
-      expect(await COMM.priceOptical.locator('.price-recurrence').innerText()).not.toBe('');
-      expect(await COMM.priceOptical.locator('.price-unit-type').innerText()).toBe('');
-      expect(await COMM.priceOptical.locator('.price-tax-inclusivity').innerText()).toBe('');
-    });
-
-    await test.step('Validate strikethrough price display', async () => {
-      await COMM.priceStrikethrough.waitFor({ state: 'visible', timeout: 10000 });
-      expect(await COMM.priceStrikethrough.innerText()).toContain('US$263.88/yr');
-      expect(await COMM.priceStrikethrough.locator('.price-recurrence').innerText()).not.toBe('');
-      expect(await COMM.priceStrikethrough.locator('.price-unit-type').innerText()).toBe('');
-      expect(await COMM.priceStrikethrough.locator('.price-tax-inclusivity').innerText()).toBe('');
-      const priceStyle = await COMM.priceStrikethrough.evaluate(
-        (e) => window.getComputedStyle(e).getPropertyValue('text-decoration'),
-      );
-      expect(await priceStyle).toContain('line-through');
-    });
-  });
 });

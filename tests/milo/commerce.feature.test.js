@@ -6,9 +6,18 @@ import FedsLogin from '../../selectors/feds/feds.login.page.js';
 import FedsHeader from '../../selectors/feds/feds.header.page.js';
 
 const miloLibs = process.env.MILO_LIBS || '';
+let consoleErrors = [];
 
 let COMM;
-test.beforeEach(async ({ page }) => { COMM = new CommercePage(page); });
+test.beforeEach(async ({ page }) => { 
+  COMM = new CommercePage(page); 
+
+  page.on('console', (exception) => {
+    if (exception.type() === 'error') {
+      consoleErrors.push(exception.text());
+    }
+  }); 
+});
 
 test.describe('Commerce feature test suite', () => {
   // @Commerce-Price-Term - Validate price with term display
@@ -20,7 +29,8 @@ test.describe('Commerce feature test suite', () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
-      console.log('DEBUG: Screenshot taken');
+      console.log('ERRORS: ', consoleErrors);
+
     });
 
     await test.step('Validate regular price display', async () => {

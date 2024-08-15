@@ -159,11 +159,5 @@ module.exports = {
       },
       tags: '@promo @commerce @regression',
     },
-    {
-      tcid: '14',
-      name: '@Promo-Price-Term',
-      path: '/drafts/nala/features/commerce/prices-with-term',
-      tags: '@promo @smoke @regression',
-    },
   ],
 };
