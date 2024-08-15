@@ -36,3 +36,11 @@ jobs:
           name: nala-results
           path: nala-results.json
           retention-days: 30
+      - name: Persist Output
+        uses: actions/upload-artifact@v3
+        if: failure()      
+        with:
+           name: playwright-output
+           path: mili ## Folder used in playwright.config.js `outputDir`
+           retention-days: 30
+
