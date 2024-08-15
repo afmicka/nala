@@ -19,7 +19,8 @@ test.describe('Commerce feature test suite', () => {
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
-      await page.screenshot({ path: '/mili/commerce/screenshot.png', fullPage: true });
+      await page.screenshot({ path: './screenshot.png', fullPage: true });
+      console.log('DEBUG: Screenshot taken');
     });
 
     await test.step('Validate regular price display', async () => {
