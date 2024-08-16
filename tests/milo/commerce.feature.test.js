@@ -9,15 +9,26 @@ const miloLibs = process.env.MILO_LIBS || '';
 let consoleErrors = [];
 
 let COMM;
-test.beforeEach(async ({ page, browser }) => { 
-  COMM = new CommercePage(page); 
-});
+// test.beforeEach(async ({ page, browser }) => { 
+//   COMM = new CommercePage(page); 
+
+//     // const context = await browser.newContext({
+//   //   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+//   // });
+  
+//   // Create a new page in the browser context and navigate to target URL
+//   // page = await context.newPage();
+//   // // await page.goto('https://httpbin.io/user-agent');
+  
+//   // COMM = new CommercePage(page); 
+// });
 
 test.describe('Commerce feature test suite', () => {
-  test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36' });
+  // test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36' });
 
   // @Commerce-Price-Term - Validate price with term display
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browser }) => {
+    COMM = new CommercePage(page); 
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
     console.info('[Test Page]: ', testPage);
 
