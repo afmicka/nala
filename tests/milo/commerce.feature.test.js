@@ -9,27 +9,9 @@ const miloLibs = process.env.MILO_LIBS || '';
 let consoleErrors = [];
 // let context;
 let COMM;
-let mypage;
 
 test.beforeAll(async ({ browser, browserName }) => { 
-  // COMM = new CommercePage(page); 
-
-  //  page = await browser.newPage();
-   const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
-  });   
-  // const context = await browser.newContext();    
-  mypage = await context.newPage();
-
-  mypage.on('console', (exception) => {
-    if (exception.type() === 'error') {
-      consoleErrors.push(exception.text());
-    }
-  }); 
-  console.log(`ERRORS before (${browserName}): `, consoleErrors);
-
-  COMM = new CommercePage(mypage); 
-
+  COMM = new CommercePage(page); 
 });
 
 test.afterEach(async ({ browserName }) =>{
@@ -47,17 +29,17 @@ test.describe('Commerce feature test suite', () => {
     console.info('[Test Page]: ', testPage);
 
     await test.step('Go to the test page', async () => {
-      await mypage.goto(testPage);
-      await mypage.waitForLoadState('domcontentloaded');
-      await mypage.screenshot({ fullPage: true });
+      await page.goto(testPage);
+      await page.waitForLoadState('domcontentloaded');
+      await page.screenshot({ fullPage: true });
       console.log(`ERRORS test (${browserName}): `, consoleErrors);
 
-      console.log(`AGENT (${browserName}): `, await mypage.evaluate(() => { return window.navigator.userAgent;}));
-      console.log(`content: (${browserName})`, await mypage.content());
+      console.log(`AGENT (${browserName}): `, await page.evaluate(() => { return window.navigator.userAgent;}));
+      console.log(`content: (${browserName})`, await page.content());
     });
 
     await test.step('Validate regular price display', async () => {
-      console.log('PAGE: ', mypage.url());
+      console.log(`PAGE: (${browserName})`, page.url());
       await COMM.price.waitFor({ state: 'visible', timeout: 10000 });
       expect(await COMM.price.innerText()).toContain('US$263.88/yr');
       expect(await COMM.price.locator('.price-recurrence').innerText()).not.toBe('');
