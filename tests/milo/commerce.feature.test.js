@@ -33,9 +33,6 @@ test.describe('Commerce feature test suite', () => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
     console.info('[Test Page]: ', testPage);
 
-    console.log('AGENT: ', await page.evaluate(() => { return window.navigator.userAgent;}));
-
-
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
