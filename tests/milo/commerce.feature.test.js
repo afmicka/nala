@@ -9,15 +9,15 @@ const miloLibs = process.env.MILO_LIBS || '';
 let consoleErrors = [];
 
 let COMM;
-test.beforeEach(async ({ page }) => { 
+test.beforeEach(async ({ page, browserName }) => { 
   COMM = new CommercePage(page); 
 
-  // page.on('console', (exception) => {
-  //   if (exception.type() === 'error') {
-  //     consoleErrors.push(exception.text());
-  //   }
-  // }); 
-  // console.log('ERRORS befroeEach: ', consoleErrors);
+  page.on('console', (exception) => {
+    if (exception.type() === 'error') {
+      consoleErrors.push(exception.text());
+    }
+  }); 
+  console.log(`ERRORS before (${browserName}): `, consoleErrors);
 
     // const context = await browser.newContext({
   //   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
@@ -30,11 +30,17 @@ test.beforeEach(async ({ page }) => {
   // COMM = new CommercePage(page); 
 });
 
+test.afterEach(async ({ browserName }) =>{
+  console.log(`ERRORS after (${browserName}): `, consoleErrors);
+  consoleErrors = [];
+});
+
+
 test.describe('Commerce feature test suite', () => {
-  test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.82 Safari/537.36' });
+  test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' });
 
   // @Commerce-Price-Term - Validate price with term display
-  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browser }) => {
+  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browserName }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
     console.info('[Test Page]: ', testPage);
 
@@ -45,13 +51,8 @@ test.describe('Commerce feature test suite', () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
+      console.log(`ERRORS test (${browserName}): `, consoleErrors);
 
-      page.on('console', (exception) => {
-        if (exception.type() === 'error') {
-          consoleErrors.push(exception.text());
-        }
-      }); 
-      console.log('ERRORS test: ', consoleErrors);
 
     });
 
