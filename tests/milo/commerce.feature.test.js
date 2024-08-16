@@ -26,7 +26,7 @@ test.afterEach(async ({ browserName }) =>{
 
 
 test.describe('Commerce feature test suite', () => {
-  test.use({ userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36' });
+  // test.use({ userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36' });
 
   // @Commerce-Price-Term - Validate price with term display
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browserName }) => {
