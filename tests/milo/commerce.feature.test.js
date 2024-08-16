@@ -4,12 +4,16 @@ import { WebUtil } from '../../libs/webutil.js';
 import CommercePage from '../../selectors/milo/commerce.feature.page.js';
 import FedsLogin from '../../selectors/feds/feds.login.page.js';
 import FedsHeader from '../../selectors/feds/feds.header.page.js';
+import puppeteer from 'puppeteer';
 
 const miloLibs = process.env.MILO_LIBS || '';
 let consoleErrors = [];
 
 let COMM;
 test.beforeEach(async ({ page }) => { 
+  const ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36';
+  const page = await browser.newPage();
+  page.setUserAgent(ua);
   COMM = new CommercePage(page); 
 
   page.on('console', (exception) => {
