@@ -17,27 +17,16 @@ test.beforeEach(async ({ page, browserName }) => {
       consoleErrors.push(exception.text());
     }
   }); 
-  console.log(`ERRORS before (${browserName}): `, consoleErrors);
-
-    // const context = await browser.newContext({
-  //   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-  // });
-  
-  // Create a new page in the browser context and navigate to target URL
-  // page = await context.newPage();
-  // // await page.goto('https://httpbin.io/user-agent');
-  
-  // COMM = new CommercePage(page); 
 });
 
 test.afterEach(async ({ browserName }) =>{
-  console.log(`ERRORS after (${browserName}): `, consoleErrors);
+  console.log(`ERRORS (${browserName}): `, consoleErrors);
   consoleErrors = [];
 });
 
 
 test.describe('Commerce feature test suite', () => {
-  test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' });
+  // test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' });
 
   // @Commerce-Price-Term - Validate price with term display
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browserName }) => {
@@ -51,9 +40,6 @@ test.describe('Commerce feature test suite', () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
-      console.log(`ERRORS test (${browserName}): `, consoleErrors);
-
-
     });
 
     await test.step('Validate regular price display', async () => {
