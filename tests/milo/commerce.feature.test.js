@@ -40,6 +40,7 @@ test.describe('Commerce feature test suite', () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
+      console.log('AGENT: ', await page.evaluate(() => { return window.navigator.userAgent;}));
     });
 
     await test.step('Validate regular price display', async () => {
