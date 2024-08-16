@@ -12,12 +12,12 @@ let COMM;
 test.beforeEach(async ({ page }) => { 
   COMM = new CommercePage(page); 
 
-  page.on('console', (exception) => {
-    if (exception.type() === 'error') {
-      consoleErrors.push(exception.text());
-    }
-  }); 
-  console.log('ERRORS befroeEach: ', consoleErrors);
+  // page.on('console', (exception) => {
+  //   if (exception.type() === 'error') {
+  //     consoleErrors.push(exception.text());
+  //   }
+  // }); 
+  // console.log('ERRORS befroeEach: ', consoleErrors);
 
     // const context = await browser.newContext({
   //   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
@@ -31,7 +31,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Commerce feature test suite', () => {
-  // test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36' });
+  test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.82 Safari/537.36' });
 
   // @Commerce-Price-Term - Validate price with term display
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browser }) => {
