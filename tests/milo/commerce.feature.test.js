@@ -57,7 +57,7 @@ test.describe('Commerce feature test suite', () => {
     });
 
     await test.step('Validate regular price display', async () => {
-      console.log('PAGE: ', page.url());
+      console.log('PAGE: ', mypage.url());
       await COMM.price.waitFor({ state: 'visible', timeout: 10000 });
       expect(await COMM.price.innerText()).toContain('US$263.88/yr');
       expect(await COMM.price.locator('.price-recurrence').innerText()).not.toBe('');
