@@ -16,7 +16,7 @@ test.beforeAll(async ({ browser, browserName }) => {
 
   //  page = await browser.newPage();
    const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
   });   
   // const context = await browser.newContext();    
   mypage = await context.newPage();
