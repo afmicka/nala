@@ -52,8 +52,8 @@ test.describe('Commerce feature test suite', () => {
       await mypage.screenshot({ fullPage: true });
       console.log(`ERRORS test (${browserName}): `, consoleErrors);
 
-      console.log('AGENT: ', await mypage.evaluate(() => { return window.navigator.userAgent;}));
-      console.log('content: ', await mypage.content());
+      console.log(`AGENT (${browserName}): `, await mypage.evaluate(() => { return window.navigator.userAgent;}));
+      console.log(`content: (${browserName})`, await mypage.content());
     });
 
     await test.step('Validate regular price display', async () => {
