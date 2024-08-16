@@ -9,28 +9,31 @@ const miloLibs = process.env.MILO_LIBS || '';
 let consoleErrors = [];
 
 let COMM;
-test.beforeEach(async ({ page }) => { 
+test.beforeEach(async ({ page, browser }) => { 
   COMM = new CommercePage(page); 
-
-  page.on('console', (exception) => {
-    if (exception.type() === 'error') {
-      consoleErrors.push(exception.text());
-    }
-  }); 
 });
 
 test.describe('Commerce feature test suite', () => {
   test.use({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36' });
 
   // @Commerce-Price-Term - Validate price with term display
-  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
+  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browser }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
     console.info('[Test Page]: ', testPage);
+
+    console.log('AGENT: ', await page.evaluate(() => { return window.navigator.userAgent;}));
+
 
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
+
+      page.on('console', (exception) => {
+        if (exception.type() === 'error') {
+          consoleErrors.push(exception.text());
+        }
+      }); 
       console.log('ERRORS: ', consoleErrors);
 
     });
