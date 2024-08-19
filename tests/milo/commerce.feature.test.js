@@ -8,28 +8,44 @@ import FedsHeader from '../../selectors/feds/feds.header.page.js';
 const miloLibs = process.env.MILO_LIBS || '';
 
 let COMM;
-test.beforeEach(async ({ page, baseURL, browserName }) => {
-  COMM = new CommercePage(page);
-  const skipOn = ['bacom', 'business'];
+let consoleErrors = [];
 
-  skipOn.some((skip) => {
-    if (baseURL.includes(skip)) test.skip(true, `Skipping the commerce tests for ${baseURL}`);
-    return null;
-  });
+test.beforeEach(async ({ page, browser, browserName }) => {
+  // COMM = new CommercePage(page); 
+  //  page = await browser.newPage();
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  });   
+  // const context = await browser.newContext();    
+  page = await context.newPage();
+  page.on('console', (exception) => {
+    if (exception.type() === 'error') {
+      consoleErrors.push(exception.text());
+    }
+  }); 
+  console.log(`ERRORS before (${browserName}): `, consoleErrors);
+});
 
-  // Skipping tests for chromium on github actions dut to net::ERR_HTTP2_PROTOCOL_ERROR.
-
+test.afterEach(async ({ browserName }) =>{
+  console.log(`ERRORS (${browserName}): `, consoleErrors);
+  consoleErrors = [];
 });
 
 test.describe('Commerce feature test suite', () => {
   // @Commerce-Price-Term - Validate price with term display
-  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
+  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browserName }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
     console.info('[Test Page]: ', testPage);
+    COMM = new CommercePage(page);
 
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
+      await page.screenshot({ fullPage: true });
+      console.log(`ERRORS test (${browserName}): `, consoleErrors);
+
+      console.log(`AGENT (${browserName}): `, await page.evaluate(() => { return window.navigator.userAgent;}));
+      console.log(`content: (${browserName})`, await page.content());
     });
 
     await test.step('Validate regular price display', async () => {
