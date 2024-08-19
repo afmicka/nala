@@ -1,4 +1,4 @@
-name: Run Commerce Debug Manually
+name: Run on Browserstack
 
 on:
   workflow_dispatch:
@@ -22,9 +22,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-        with:
-          repository: afmicka/nala
-          ref: main
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -32,7 +29,7 @@ jobs:
           node-version: lts/*
 
       - name: Run Nala ${{ matrix.os }}
-        run: bash runOnBrowserstack.sh milo @Commerce-Price-Term
+        run: bash runOnBrowserstack.sh milo ${{ inputs.tags }}
         env:
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
