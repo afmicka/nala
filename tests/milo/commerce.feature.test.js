@@ -10,9 +10,7 @@ let consoleErrors = [];
 // let context;
 let COMM;
 
-test.beforeAll(async ({ browser, browserName }) => { 
-  COMM = new CommercePage(page); 
-});
+test.beforeEach(async ({ page }) => { COMM = new CommercePage(page); });
 
 test.afterEach(async ({ browserName }) =>{
   console.log(`ERRORS (${browserName}): `, consoleErrors);
