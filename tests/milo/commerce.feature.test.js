@@ -18,7 +18,7 @@ test.beforeEach(async ({ page, baseURL, browserName }) => {
   });
 
   // Skipping tests for chromium on github actions dut to net::ERR_HTTP2_PROTOCOL_ERROR.
-  if (browserName === 'chromium' && process.env.CI) test.skip();
+  if (browserName === 'chromium' && process.env.CI) test.skip('Skipping tests for chromium on github actions dut to net::ERR_HTTP2_PROTOCOL_ERROR.');
 
   if (process.env.CI) test.setTimeout(1000 * 60 * 3); // 3 minutes
 });
