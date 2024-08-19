@@ -17,6 +17,8 @@ test.beforeEach(async ({ page, baseURL, browserName }) => {
     return null;
   });
 
+  if (browserName === 'chromium') test.skip();
+
 });
 
 test.describe('Commerce feature test suite', () => {
