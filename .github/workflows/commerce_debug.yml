@@ -1,4 +1,4 @@
-name: Run Nala Manually
+name: Run Commerce Debug Manually
 
 on:
   workflow_dispatch:
