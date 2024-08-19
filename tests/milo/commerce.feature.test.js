@@ -8,22 +8,20 @@ import FedsHeader from '../../selectors/feds/feds.header.page.js';
 const miloLibs = process.env.MILO_LIBS || '';
 
 let COMM;
+test.beforeEach(async ({ page, baseURL, browserName }) => {
+  COMM = new CommercePage(page);
+  const skipOn = ['bacom', 'business'];
+
+  skipOn.some((skip) => {
+    if (baseURL.includes(skip)) test.skip(true, `Skipping the commerce tests for ${baseURL}`);
+    return null;
+  });
+
+  // Skipping tests for chromium on github actions dut to net::ERR_HTTP2_PROTOCOL_ERROR.
+  if (browserName === 'chromium' && process.env.GITHUB_ACTIONS) test.skip();
+});
 
 test.describe('Commerce feature test suite', () => {
-   test.beforeAll(async ({ baseURL, browserName }) => {
-    if (browserName === 'chromium') test.skip('TODO: debug why this is failing on github actions');
-     
-    const skipOn = ['bacom', 'business'];
-    skipOn.some((skip) => {
-      if (baseURL.includes(skip)) test.skip(true, `Skipping the commerce tests for ${baseURL}`);
-      return null;
-    });
-   });
-  
-  test.beforeEach(async ({ page }) => {
-    COMM = new CommercePage(page);
-  });
-  
   // @Commerce-Price-Term - Validate price with term display
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
