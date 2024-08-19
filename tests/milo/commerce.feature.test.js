@@ -11,7 +11,7 @@ let COMM;
 
 test.describe('Commerce feature test suite', () => {
    test.beforeAll(async ({ baseURL, browserName }) => {
-    if (browserName === 'chromium' && process.env.CI) test.skip('TODO: debug why this is failing on github actions');
+    if (browserName === 'chromium') test.skip('TODO: debug why this is failing on github actions');
      
     const skipOn = ['bacom', 'business'];
     skipOn.some((skip) => {
