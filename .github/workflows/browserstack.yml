@@ -1,0 +1,35 @@
+name: Run on Browserstack
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Test scenario tags, if empty all tests will run. i.e., @marquee'
+        required: false
+        type: string
+
+jobs:
+  platform_matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+    name: Running tests on Browserstack
+    runs-on: ${{ matrix.os }}
+    env:
+      WORKFLOW_NAME: 'Commerce Debug Nala Run'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Run Nala ${{ matrix.os }}
+        run: bash runOnBrowserstack.sh milo ${{ inputs.tags }}
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
