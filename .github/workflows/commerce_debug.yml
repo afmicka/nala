@@ -23,7 +23,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
         with:
-          repository: adobecom/nala
+          repository: afmicka/nala
           ref: main
 
       - name: Set up Node.js
