@@ -33,3 +33,11 @@ jobs:
         env:
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: Persist Output
+        uses: actions/upload-artifact@v3
+        if: failure()      
+        with:
+           name: playwright-output
+           path: mili ## Folder used in playwright.config.js `outputDir`
+           retention-days: 30
