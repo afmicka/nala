@@ -1,0 +1,33 @@
+name: Run Nala Manually
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Test scenario tags, if empty all tests will run. i.e., @marquee'
+        required: false
+        type: string
+      platform:
+        description: 'Platform to run tests on; select one, options: [ubuntu-latest, windows-latest, macos-latest]'
+        required: true
+        type: string
+
+jobs:
+  action:
+    name: Running tests
+    runs-on: ${{ inputs.platform }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Run Nala ${{ inputs.platform }}
+        run: bash runOnBrowserstack.sh milo @Commerce-Price-Term
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
