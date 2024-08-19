@@ -11,19 +11,13 @@ let COMM;
 let consoleErrors = [];
 
 test.beforeEach(async ({ page, browser, browserName }) => {
-  // COMM = new CommercePage(page); 
-  //  page = await browser.newPage();
-  const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
-  });   
-  // const context = await browser.newContext();    
-  page = await context.newPage();
+  COMM = new CommercePage(page); 
+
   page.on('console', (exception) => {
     if (exception.type() === 'error') {
       consoleErrors.push(exception.text());
     }
   }); 
-  console.log(`ERRORS before (${browserName}): `, consoleErrors);
 });
 
 test.afterEach(async ({ browserName }) =>{
@@ -36,16 +30,13 @@ test.describe('Commerce feature test suite', () => {
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browserName }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
     console.info('[Test Page]: ', testPage);
-    COMM = new CommercePage(page);
 
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
-      console.log(`ERRORS test (${browserName}): `, consoleErrors);
 
       console.log(`AGENT (${browserName}): `, await page.evaluate(() => { return window.navigator.userAgent;}));
-      console.log(`content: (${browserName})`, await page.content());
     });
 
     await test.step('Validate regular price display', async () => {
