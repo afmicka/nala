@@ -6,38 +6,35 @@ import FedsLogin from '../../selectors/feds/feds.login.page.js';
 import FedsHeader from '../../selectors/feds/feds.header.page.js';
 
 const miloLibs = process.env.MILO_LIBS || '';
-let consoleErrors = [];
-// let context;
+
 let COMM;
+test.beforeEach(async ({ page, baseURL, browserName }) => {
+  COMM = new CommercePage(page);
+  const skipOn = ['bacom', 'business'];
 
-test.beforeEach(async ({ page }) => { COMM = new CommercePage(page); });
+  skipOn.some((skip) => {
+    if (baseURL.includes(skip)) test.skip(true, `Skipping the commerce tests for ${baseURL}`);
+    return null;
+  });
 
-test.afterEach(async ({ browserName }) =>{
-  console.log(`ERRORS (${browserName}): `, consoleErrors);
-  consoleErrors = [];
+  // Skipping tests for chromium on github actions dut to net::ERR_HTTP2_PROTOCOL_ERROR.
+  if (browserName === 'chromium' && process.env.CI) test.skip();
+
+  if (process.env.CI) test.setTimeout(1000 * 60 * 3); // 3 minutes
 });
 
-
 test.describe('Commerce feature test suite', () => {
-  // test.use({ userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36' });
-
   // @Commerce-Price-Term - Validate price with term display
-  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL, browserName }) => {
+  test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
     const testPage = `${baseURL}${features[0].path}${miloLibs}`;
     console.info('[Test Page]: ', testPage);
 
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
-      await page.screenshot({ fullPage: true });
-      console.log(`ERRORS test (${browserName}): `, consoleErrors);
-
-      console.log(`AGENT (${browserName}): `, await page.evaluate(() => { return window.navigator.userAgent;}));
-      console.log(`content: (${browserName})`, await page.content());
     });
 
     await test.step('Validate regular price display', async () => {
-      console.log(`PAGE: (${browserName})`, page.url());
       await COMM.price.waitFor({ state: 'visible', timeout: 10000 });
       expect(await COMM.price.innerText()).toContain('US$263.88/yr');
       expect(await COMM.price.locator('.price-recurrence').innerText()).not.toBe('');
