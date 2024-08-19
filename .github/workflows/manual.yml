@@ -43,3 +43,8 @@ jobs:
            name: playwright-output
            path: mili ## Folder used in playwright.config.js `outputDir`
            retention-days: 30
+      - name: Run Nala ${{ matrix.os }}
+        run: bash runOnBrowserstack.sh milo ${{ inputs.tags }}
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
