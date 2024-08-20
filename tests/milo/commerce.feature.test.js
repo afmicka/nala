@@ -16,7 +16,7 @@ test.beforeEach(async ({ page, browser, browserName }) => {
   
   page.on('requestfailed', request => {
     console.log(`REQUEST FAILED (${browserName}): `, request.url() + ' ' + request.failure().errorText);
-    console.log(`REQUEST HEADER (${browserName}): `, request.allHeaders());
+    console.log(`REQUEST HEADER (${browserName}): `, request.headers());
 });
 });
 
@@ -37,39 +37,6 @@ test.describe('Commerce feature test suite', () => {
       await page.screenshot({ fullPage: true });
 
       console.log(`AGENT (${browserName}): `, await page.evaluate(() => { return window.navigator.userAgent;}));
-
-      const postData = JSON.stringify({
-        'msg': 'Hello World!',
-      });
-
-      const options = {
-        hostname: 'www.adobe.com',
-        port: 80,
-        path: '/federal/commerce/price-literals.json',
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(postData),
-        },
-      };
-
-      const req = http.request(options, (res) => {
-        console.log(`STATUS (${browserName}): ${res.statusCode}`);
-        console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
-        res.setEncoding('utf8');
-        res.on('data', (chunk) => {
-          console.log(`BODY: ${chunk}`);
-        });
-        res.on('end', () => {
-          console.log('No more data in response.');
-        });
-      });
-      
-      req.on('error', (e) => {
-        console.error(`problem with request: ${e.message}`);
-      });
-      req.write(postData);
-      // req.end();
     });
 
     await test.step('Validate regular price display', async () => {
