@@ -4,7 +4,7 @@ import { WebUtil } from '../../libs/webutil.js';
 import CommercePage from '../../selectors/milo/commerce.feature.page.js';
 import FedsLogin from '../../selectors/feds/feds.login.page.js';
 import FedsHeader from '../../selectors/feds/feds.header.page.js';
-const https = require('node:https');
+const http = require('node:http');
 
 const miloLibs = process.env.MILO_LIBS || '';
 
@@ -54,7 +54,7 @@ test.describe('Commerce feature test suite', () => {
         },
       };
 
-      const req = https.request(options, (res) => {
+      const req = http.request(options, (res) => {
         console.log(`STATUS (${browserName}): ${res.statusCode}`);
         console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
         res.setEncoding('utf8');
