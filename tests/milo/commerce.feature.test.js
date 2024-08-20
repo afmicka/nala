@@ -12,12 +12,15 @@ let COMM;
 let consoleErrors = [];
 
 test.beforeEach(async ({ page, browser, browserName }) => {
-  COMM = new CommercePage(page); 
-  
+  COMM = new CommercePage(page);
+  await page.setExtraHTTPHeaders({
+        'sec-ch-ua': '\"Chromium\";v=\"123\", \"Not:A-Brand\";v=\"8\"',
+    });
+
   page.on('requestfailed', request => {
     console.log(`REQUEST FAILED (${browserName}): `, request.url() + ' ' + request.failure().errorText);
     console.log(`REQUEST HEADER (${browserName}): `, request.headers());
-});
+  });
 });
 
 test.afterEach(async ({ browserName }) =>{
@@ -32,9 +35,6 @@ test.describe('Commerce feature test suite', () => {
     console.info('[Test Page]: ', testPage);
 
     await test.step('Go to the test page', async () => {
-      await page.setExtraHTTPHeaders({
-        'sec-ch-ua': '\"Chromium\";v=\"123\", \"Not:A-Brand\";v=\"8\"',
-       });
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
