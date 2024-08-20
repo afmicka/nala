@@ -15,7 +15,7 @@ test.beforeEach(async ({ page, browser, browserName }) => {
   COMM = new CommercePage(page);
   if (browserName === 'chromium') {
     await page.setExtraHTTPHeaders({
-      'sec-ch-ua': '\"Chromium\";v=\"123\", \"Not:A-Brand\";v=\"8\"',
+      'sec-ch-ua': '"Chromium";v="123", "Not:A-Brand";v="8"',
     });
   }
 
