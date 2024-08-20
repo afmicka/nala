@@ -16,7 +16,7 @@ test.beforeEach(async ({ page, browser, browserName }) => {
   
   page.on('requestfailed', request => {
     console.log(`REQUEST FAILED (${browserName}): `, request.url() + ' ' + request.failure().errorText);
-    console.log(`REQUEST HEADER (${browserName}): `, request.headers());
+    console.log(`REQUEST HEADER (${browserName}): `, request.allHeaders());
 });
 });
 
