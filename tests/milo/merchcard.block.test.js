@@ -7,7 +7,7 @@ let merchCard;
 const miloLibs = process.env.MILO_LIBS || '';
 
 test.describe('Milo Merchcard block test suite', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, browserName }) => {
     merchCard = new MerchCard(page);
     if (browserName === 'chromium') {
     await page.setExtraHTTPHeaders({
