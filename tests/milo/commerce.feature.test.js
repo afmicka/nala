@@ -46,7 +46,7 @@ test.describe('Commerce feature test suite', () => {
       const options = {
         hostname: 'www.adobe.com',
         port: 80,
-        path: '/',
+        path: '/federal/commerce/price-literals.json',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
