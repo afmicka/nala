@@ -4,6 +4,7 @@ import { WebUtil } from '../../libs/webutil.js';
 import CommercePage from '../../selectors/milo/commerce.feature.page.js';
 import FedsLogin from '../../selectors/feds/feds.login.page.js';
 import FedsHeader from '../../selectors/feds/feds.header.page.js';
+const http = require('node:http');
 
 const miloLibs = process.env.MILO_LIBS || '';
 
@@ -37,6 +38,39 @@ test.describe('Commerce feature test suite', () => {
       await page.screenshot({ fullPage: true });
 
       console.log(`AGENT (${browserName}): `, await page.evaluate(() => { return window.navigator.userAgent;}));
+
+      const postData = JSON.stringify({
+        'msg': 'Hello World!',
+      });
+
+      const options = {
+        hostname: 'www.adobe.com',
+        port: 80,
+        path: '/',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(postData),
+        },
+      };
+
+      const req = http.request(options, (res) => {
+        console.log(`STATUS: ${res.statusCode}`);
+        console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+        res.setEncoding('utf8');
+        res.on('data', (chunk) => {
+          console.log(`BODY: ${chunk}`);
+        });
+        res.on('end', () => {
+          console.log('No more data in response.');
+        });
+      });
+      
+      req.on('error', (e) => {
+        console.error(`problem with request: ${e.message}`);
+      });
+      req.write(postData);
+      // req.end();
     });
 
     await test.step('Validate regular price display', async () => {
