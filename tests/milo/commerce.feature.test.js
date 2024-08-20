@@ -19,6 +19,9 @@ test.beforeEach(async ({ page, browser, browserName }) => {
       consoleErrors.push(exception.text());
     }
   }); 
+  page.on('requestfailed', request => {
+  console.log(`REQUEST (${browserName}): `, request.url() + ' ' + request.failure().errorText);
+});
 });
 
 test.afterEach(async ({ browserName }) =>{
