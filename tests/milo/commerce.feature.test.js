@@ -20,7 +20,7 @@ test.beforeEach(async ({ page, browser, browserName }) => {
     }
   }); 
   page.on('requestfailed', request => {
-  console.log(`REQUEST (${browserName}): `, request.url() + ' ' + request.failure().errorText);
+  console.log(`REQUEST (${browserName}): `, request.url() + ' ' + request.failure().errorText + ' ' + request.allHeaders());
   console.log('REQUEST headers: ', request.allHeaders());
 });
 });
