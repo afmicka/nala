@@ -44,7 +44,7 @@ test.describe('Commerce feature test suite', () => {
       });
 
       const options = {
-        hostname: 'www.adobe.com',
+        hostname: 'https://www.adobe.com',
         port: 80,
         path: '/',
         method: 'GET',
@@ -55,7 +55,7 @@ test.describe('Commerce feature test suite', () => {
       };
 
       const req = http.request(options, (res) => {
-        console.log(`STATUS: ${res.statusCode}`);
+        console.log(`STATUS (${browserName}): ${res.statusCode}`);
         console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
         res.setEncoding('utf8');
         res.on('data', (chunk) => {
