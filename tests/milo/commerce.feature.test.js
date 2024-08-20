@@ -48,6 +48,7 @@ test.describe('Commerce feature test suite', () => {
         port: 80,
         path: '/federal/commerce/price-literals.json',
         method: 'GET',
+        httpVersion: 'HTTP/1.1',
         headers: {
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(postData),
