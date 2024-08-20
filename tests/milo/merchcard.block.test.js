@@ -9,9 +9,14 @@ const miloLibs = process.env.MILO_LIBS || '';
 test.describe('Milo Merchcard block test suite', () => {
   test.beforeEach(async ({ page }) => {
     merchCard = new MerchCard(page);
+    if (browserName === 'chromium') {
+    await page.setExtraHTTPHeaders({
+      'sec-ch-ua': '\"Chromium\";v=\"123\", \"Not:A-Brand\";v=\"8\"',
+    });
+  }
   });
 
-  test.skip(({ browserName }) => browserName === 'chromium', 'Skipping tests for Chrome browser');
+  // test.skip(({ browserName }) => browserName === 'chromium', 'Skipping tests for Chrome browser');
 
   // Test 0 : Merch Card (Segment)
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
