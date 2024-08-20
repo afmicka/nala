@@ -32,6 +32,9 @@ test.describe('Commerce feature test suite', () => {
     console.info('[Test Page]: ', testPage);
 
     await test.step('Go to the test page', async () => {
+      await page.setExtraHTTPHeaders({
+        'sec-ch-ua': '\"Chromium\";v=\"123\", \"Not:A-Brand\";v=\"8\"',
+       });
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ fullPage: true });
