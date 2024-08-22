@@ -21,7 +21,7 @@ test.describe('Milo Html Extension feature test suite', () => {
       });
       
       // Continue requests as POST.
-      await page.route('**/*', route => route.continue({ method: 'POST' }));
+      await page.route('**/*', route => route.continue({ method: 'GET' }));
     }
 
     await test.step('step-1: Go to test page urls and verify .html', async () => {
