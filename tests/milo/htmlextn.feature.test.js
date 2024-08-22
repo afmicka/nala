@@ -16,6 +16,9 @@ test.describe('Milo Html Extension feature test suite', () => {
     await test.step('step-1: Go to test page urls and verify .html', async () => {
       for (const path of paths) {
         console.info('[Test Page]\n:', `${envList[env]}${path}`);
+        page.on('requestfailed', request => {
+          console.log(request.url() + ' ' + request.failure().errorText);
+        });
 
         const url = envList[env] + path;
         await page.goto(url);
