@@ -12,6 +12,9 @@ test.describe('Milo Html Extension feature test suite', () => {
     // if (browserName === 'chromium') {
     //   test.skip('Skipping test for Chrome browser : net::ERR_HTTP2_PROTOCOL_ERROR.');
     // }
+    if (browserName === 'chromium') {
+      await page.setExtraHTTPHeaders({ 'sec-ch-ua': '"Chromium";v="123", "Not:A-Brand";v="8"' });
+    }
 
     await test.step('step-1: Go to test page urls and verify .html', async () => {
       for (const path of paths) {
