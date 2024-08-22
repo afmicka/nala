@@ -9,18 +9,8 @@ test.describe('Milo Html Extension feature test suite', () => {
     const paths = features[0].path;
     const env = features[0].envs;
 
-    // if (browserName === 'chromium') {
-    //   test.skip('Skipping test for Chrome browser : net::ERR_HTTP2_PROTOCOL_ERROR.');
-    // }
     if (browserName === 'chromium') {
-      await page.route('**/*', async route => {
-        const headers = route.request().headers();
-        await headers.remove['Upgrade-Insecure-Requests'];
-      });
-      
-      // Continue requests as POST.
-      await page.route('**/*', route => route.continue({ method: 'GET' }));
-      await page.setExtraHTTPHeaders({ 'sec-ch-ua': '"Chromium";v="123", "Not:A-Brand";v="8"' });
+      test.skip('Skipping test for Chrome browser : net::ERR_HTTP2_PROTOCOL_ERROR.');
     }
 
     await test.step('step-1: Go to test page urls and verify .html', async () => {
