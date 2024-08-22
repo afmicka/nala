@@ -14,6 +14,7 @@ test.describe('Milo Html Extension feature test suite', () => {
     // }
     if (browserName === 'chromium') {
       await page.setExtraHTTPHeaders({ 'sec-ch-ua': '"Chromium";v="123", "Not:A-Brand";v="8"' });
+      await page.setExtraHTTPHeaders({ 'Upgrade-Insecure-Requests': ''});
     }
 
     await test.step('step-1: Go to test page urls and verify .html', async () => {
