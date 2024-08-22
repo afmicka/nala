@@ -9,9 +9,9 @@ test.describe('Milo Html Extension feature test suite', () => {
     const paths = features[0].path;
     const env = features[0].envs;
 
-    if (browserName === 'chromium') {
-      test.skip('Skipping test for Chrome browser : net::ERR_HTTP2_PROTOCOL_ERROR.');
-    }
+    // if (browserName === 'chromium') {
+    //   test.skip('Skipping test for Chrome browser : net::ERR_HTTP2_PROTOCOL_ERROR.');
+    // }
 
     await test.step('step-1: Go to test page urls and verify .html', async () => {
       for (const path of paths) {
