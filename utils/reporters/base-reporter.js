@@ -124,7 +124,8 @@ class BaseReporter {
     ** Application URL  : ${envURL}
     ** Executed on        : ${exeEnv}
     ** Execution details  : ${runUrl}
-    ** Workflow name      : ${runName}` ;
+    ** Workflow name      : ${runName}
+    ** Base URL           : ${process.env.BASE_URL}` ;
 
     console.log(summary);
 
