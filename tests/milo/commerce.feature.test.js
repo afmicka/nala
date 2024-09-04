@@ -30,8 +30,7 @@ test.describe('Commerce feature test suite', () => {
     } else {
       testPage = `${baseURL}${features[0].path}${miloLibs}`;
     }
-    // console.info('[Test Page]: ', testPage);
-    process.stdout.write(`[Test Page]: ${testPage}`);
+    console.info('[Test Page]: ', testPage);
 
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
