@@ -24,8 +24,14 @@ test.beforeEach(async ({ page, baseURL, browserName }) => {
 test.describe('Commerce feature test suite', () => {
   // @Commerce-Price-Term - Validate price with term display
   test(`${features[0].name},${features[0].tags}`, async ({ page, baseURL }) => {
-    const testPage = `${baseURL}${features[0].path}${miloLibs}`;
-    console.info('[Test Page]: ', testPage);
+    let testPage;
+    if (process.env.locale) {
+      testPage = `${baseURL}/${process.env.locale}/${features[0].path}${miloLibs}`;
+    } else {
+      testPage = `${baseURL}${features[0].path}${miloLibs}`;
+    }
+    // console.info('[Test Page]: ', testPage);
+    process.stdout.write(`[Test Page]: ${testPage}`);
 
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
