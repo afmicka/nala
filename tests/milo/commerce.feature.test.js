@@ -457,8 +457,8 @@ test.describe('Commerce feature test suite', () => {
     let testPage;
     // Skip tests on github actions and PRs, run only on Jenkins
     if (process.env.GITHUB_ACTIONS) test.skip();
-    if (process.env.mesto && process.env.mesto !== 'default') {
-      testPage = `${baseURL}/${process.env.mesto}${features[10].path}${miloLibs}`;
+    if (process.env.loc && process.env.loc !== 'default') {
+      testPage = `${baseURL}/${process.env.loc}${features[10].path}${miloLibs}`;
     } else {
       testPage = `${baseURL}${features[10].path}${miloLibs}`;
     }
