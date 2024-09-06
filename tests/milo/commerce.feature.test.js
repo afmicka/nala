@@ -457,25 +457,28 @@ test.describe('Commerce feature test suite', () => {
     let testPage;
     // Skip tests on github actions and PRs, run only on Jenkins
     if (process.env.GITHUB_ACTIONS) test.skip();
-    if (process.env.locale && process.env.locale !== 'default') {
-      testPage = `${baseURL}/${process.env.locale}${features[10].path}${miloLibs}`;
+    if (process.env.mesto && process.env.mesto !== 'default') {
+      testPage = `${baseURL}/${process.env.mesto}${features[10].path}${miloLibs}`;
     } else {
       testPage = `${baseURL}${features[10].path}${miloLibs}`;
     }
-    console.info('[Test Page]: ', testPage);
+    console.log('[Test Page]: ', testPage);
 
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
+      console.log('milica');
     });
 
     await test.step('Validate page display', async () => {
+      console.log('provera display');
       await COMM.price.waitFor({ state: 'visible', timeout: 10000 });
       await COMM.buyNowCta.waitFor({ state: 'visible', timeout: 10000 });
     });
 
     // Validate there are no unresolved commerce placeholders
     await test.step('Validate wcs placeholders', async () => {
+      console.log('provera palceholder');
       const unresolvedPlaceholders = await page.evaluate(
         () => [...document.querySelectorAll('[data-wcs-osi]')].filter(
           (el) => !el.classList.contains('placeholder-resolved'),
