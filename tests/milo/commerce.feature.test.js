@@ -8,6 +8,15 @@ import FedsHeader from '../../selectors/feds/feds.header.page.js';
 const miloLibs = process.env.MILO_LIBS || '';
 
 let COMM;
+let consoleErrors = [];
+const knownConsoleErrors = [
+  'Access-Control-Allow-Origin',
+  'Failed to load resource: net::ERR_FAILED',
+  'adobeid-na1-stg1.services',
+  'Attestation check for Topics',
+  'Access to fetch at',
+];
+
 test.beforeEach(async ({ page, baseURL, browserName }) => {
   COMM = new CommercePage(page);
   if (browserName === 'chromium') {
@@ -19,6 +28,17 @@ test.beforeEach(async ({ page, baseURL, browserName }) => {
     if (baseURL.includes(skip)) test.skip(true, `Skipping the commerce tests for ${baseURL}`);
     return null;
   });
+
+  page.on('console', (exception) => {
+    if (exception.type() === 'error') {
+      consoleErrors.push(exception.text());
+    }
+  });  
+
+});
+
+test.afterEach(async () =>{
+  consoleErrors = [];
 });
 
 test.describe('Commerce feature test suite', () => {
@@ -395,6 +415,11 @@ test.describe('Commerce feature test suite', () => {
     await test.step('Go to the test page', async () => {
       await page.goto(testPage);
       await page.waitForLoadState('domcontentloaded');
+    });
+
+    await test.step('step-4: Verify browser console errors', async () => {
+      consoleErrors.length > knownConsoleErrors.length && console.log('[Console error]:', consoleErrors);      
+      expect.soft(consoleErrors.length).toBeLessThanOrEqual(knownConsoleErrors.length);      
     });
 
     await test.step('Validate Buy now CTA', async () => {
